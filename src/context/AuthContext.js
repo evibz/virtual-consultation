@@ -1,5 +1,11 @@
 import React, { createContext, useEffect, useState, useContext } from 'react';
 import { auth } from '../firebase';
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 
 export const AuthContext = createContext();
 
@@ -8,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
     });
@@ -16,22 +22,22 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const login = (email, password) => {
-    return auth.signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = () => {
-    return auth.signOut();
+    return signOut(auth);
   };
 
   const value = {
     currentUser,
     signup,
     login,
-    logout
+    logout,
   };
 
   return (
@@ -41,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// ✅ Fix: Export useAuth hook
+// ✅ Custom hook to use auth
 export const useAuth = () => {
   return useContext(AuthContext);
 };

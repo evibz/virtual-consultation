@@ -16,8 +16,8 @@ export default function Login() {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError('Failed to log in');
-      console.error(err);
+     setError(err.message); // Shows Firebase's actual error message
+  console.error("Login error:", err); // Logs detailed object
     }
   };
 

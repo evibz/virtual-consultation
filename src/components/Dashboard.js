@@ -41,11 +41,13 @@ const Dashboard = () => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-semibold">Welcome, Doctor</h1>
           <div className="flex items-center gap-3">
-            <img
-              src="https://i.pravatar.cc/40?u=doctor" // Replace with Firebase URL if needed
-              alt="Profile"
-              className="w-10 h-10 rounded-full border border-gray-300"
-            />
+            <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-300">
+  <img
+  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr7zsbdjfLwEH7iVXkLiv-v7yxbhKuc3q7Nw&s"
+  alt="Profile"
+  style={{ width: '40px', height: '40px', borderRadius: '9999px', objectFit: 'cover', border: '1px solid gray' }}
+/>
+</div>
             <div className="text-sm text-gray-600 hidden md:block">
               {currentUser?.email}
             </div>
@@ -127,3 +129,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
